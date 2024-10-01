@@ -4,7 +4,7 @@
             <img src="@/assets/297-2978257_comfy-chair-cliparts-cartoon-comfy-chairs.png" alt="Comfy Chair">
             <h1><router-link :to="{ name: 'Home' }">Bingeables</router-link></h1>
             <div class="links">
-                <button>Logout</button>
+                <button @click="handleClick">Log out</button>
                 <router-link class="btn" :to="{ name: 'Signup' }">Sign up</router-link>
                 <router-link class="btn" :to="{ name: 'Login' }">Log in</router-link>
             </div>
@@ -13,8 +13,26 @@
 </template>
 
 <script>
-export default {
+import { useLogout } from '@/composables/useLogout';
+import { useRouter } from 'vue-router';
 
+export default {
+    setup () {
+        const { error, logout, isPending } = useLogout();
+        const router = useRouter();
+
+        const handleClick = async () => {
+            console.log('logging out');
+            try {
+                await logout();
+                router.push({ name: 'Login' });
+                console.log('logout successful');
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
+        return { handleClick };
+    }
 }
 </script>
 
