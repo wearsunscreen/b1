@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { projectFirestore } from '../firebase/config'
 import { is } from 'core-js/core/object'
 
-export const useCollection = (collection) => {
+const useCollection = (collection) => {
 
   const error = ref(null)
   const isPending = ref(false)
@@ -23,5 +23,6 @@ export const useCollection = (collection) => {
   }
 
   return { error, addDoc, isPending }
-
 }
+
+export default useCollection
