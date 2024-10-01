@@ -3,7 +3,8 @@
         <h3>Login</h3>
         <input type="email" placeholder="Email" v-model="email">
         <input type="password" placeholder="Password" v-model="password">
-        <button type="submit">Login</button>
+        <button v-if="!isPending">Login</button>
+        <button v-if="isPending" disabled>Loading</button>
         <div>
             <p v-if="error">{{ error }}</p>
         </div>
@@ -16,7 +17,7 @@ import { handleError, ref } from 'vue';
 
 export default {
     setup() {
-        const { error, login } = useLogin();
+        const { error, login, isPending } = useLogin();
 
         const email = ref('');
         const password = ref('');
@@ -28,9 +29,9 @@ export default {
             }
         }
 
-        return { email, password, handleSubmit, error }
+        return { email, password, handleSubmit, error, isPending }
     }
 }
 </script>
 
-<style></style>
+<style></style>s
